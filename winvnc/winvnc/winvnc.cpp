@@ -1269,12 +1269,12 @@ DWORD WINAPI imp_desktop_thread(LPVOID lpParam)
     vnclog.Print(LL_INTERR, VNCLOG("Username %s \n"),m_username);
 
 	// Create tray icon and menu
-	//vncMenu *menu = new vncMenu(server);
-	//if (menu == NULL)
-	//{
-	//	vnclog.Print(LL_INTERR, VNCLOG("failed to create tray menu\n"));
-	//	PostQuitMessage(0);
-	//}
+	vncMenu *menu = new vncMenu(server);
+	if (menu == NULL)
+	{
+		vnclog.Print(LL_INTERR, VNCLOG("failed to create tray menu\n"));
+		PostQuitMessage(0);
+	}
 
 	// This is a good spot to handle the old PostAdd messages
 	if (PostAddAutoConnectClient_bool)
@@ -1320,7 +1320,7 @@ DWORD WINAPI imp_desktop_thread(LPVOID lpParam)
 		if (fShutdownOrdered && !Runonce)
 		{
 			Runonce=true;
-			//if (menu) menu->Shutdown(true);
+			if (menu) menu->Shutdown(true);
 		}
 
 		if (hShutdownEvent)
@@ -1338,8 +1338,8 @@ DWORD WINAPI imp_desktop_thread(LPVOID lpParam)
 
 	// sf@2007 - Close all (vncMenu,tray icon, connections...)
 
-	//if (menu != NULL)
-	//	delete menu;
+	if (menu != NULL)
+		delete menu;
 
 	//vnclog.Print(LL_INTERR, VNCLOG("GetMessage stop \n"));
 	SetThreadDesktop(old_desktop);

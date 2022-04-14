@@ -397,7 +397,7 @@ vncMenu::vncMenu(vncServer *server)
 	m_hmenu = LoadMenu(hInstResDLL, MAKEINTRESOURCE(IDR_TRAYMENU));
 
 	// Install the tray icon!
-	AddTrayIcon();
+	//AddTrayIcon();
 	CoUninitialize();
 }
 
